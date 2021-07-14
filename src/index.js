@@ -30,16 +30,17 @@ function onInput(e) {
     apiService.query = e.target.value;
     apiService.resetPage()
     
-    if (apiService.query === '') {
-       galleryMarc.innerHTML = '';  
-    };
-
     galleryMarc.innerHTML = '';
         
     apiService.fetchImage().then(hits => {
         const photoMarc = photoCard(hits);
         return galleryMarc.insertAdjacentHTML('beforeend', photoMarc);
+    }).finally(() => {
+            if (apiService.query === '') {
+       galleryMarc.innerHTML = '';  
+    };
     });
+    
 };
 
 function onLoadMore(e) {
@@ -49,8 +50,7 @@ function onLoadMore(e) {
         const photoMarc = photoCard(hits);
         galleryMarc.insertAdjacentHTML('beforeend', photoMarc);
     }).then(() => {
-               const lastCard = galleryMarc.lastElementChild;
-      return lastCard.scrollIntoView({
+      return buttonMore.scrollIntoView({
         behavior: 'smooth',
         block: 'end',
      }); 
