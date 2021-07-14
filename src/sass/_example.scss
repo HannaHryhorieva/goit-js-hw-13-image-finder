@@ -1,27 +1,59 @@
-.example {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
-    'Open Sans', 'Helvetica Neue', sans-serif;
-  line-height: 1.5;
-  background-color: #fff;
-  color: #424242;
-  max-width: 960px;
-  padding: 16px;
+// .example {
+//   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+//     'Open Sans', 'Helvetica Neue', sans-serif;
+//   line-height: 1.5;
+//   background-color: #fff;
+//   color: #424242;
+//   max-width: 960px;
+//   padding: 16px;
+// }
+
+// .example code {
+//   font-family: monospace;
+//   font-size: 16px;
+//   font-weight: 700;
+//   background-color: #009688;
+//   color: #fff;
+//   padding: 2px 6px;
+//   border-radius: 2px;
+// }
+
+// .example .background {
+//   height: 240px;
+//   // Путь к изображениям из SASS-файла всегда такой, как из папки css
+//   // background-image: url('../images/demo.jpg');
+//   background-size: cover;
+//   background-position: center;
+// }
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  max-width: calc(100vw - 80px);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
 }
 
-.example code {
-  font-family: monospace;
-  font-size: 16px;
-  font-weight: 700;
-  background-color: #009688;
-  color: #fff;
-  padding: 2px 6px;
-  border-radius: 2px;
+.gallery .photo-card {
+  height: 100%;
+  overflow: hidden;
 }
 
-.example .background {
-  height: 240px;
-  // Путь к изображениям из SASS-файла всегда такой, как из папки css
-  background-image: url('../images/demo.jpg');
-  background-size: cover;
-  background-position: center;
+.gallery img {
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
+
+.stats {
+  display: flex;
+}
+// .articles a {
+//   text-decoration: none;
+//   color: #2a2a2a;
+// }
