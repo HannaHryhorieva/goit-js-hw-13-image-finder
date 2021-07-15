@@ -3,9 +3,16 @@ import searchInput from './templates/searchInput.hbs';
 import gallery from './templates/gallery.hbs';
 import photoCard from './templates/photoCard.hbs';
 import button from './templates/button.hbs';
-
 import ApiService from './apiService.js';
 
+import '@pnotify/core/dist/Angeler.css';
+import '@pnotify/core/dist/BrightTheme.css';
+
+const { defaults } = require('@pnotify/core');
+const { alert, notice, info, success, error } = require('@pnotify/core');
+
+defaults.closerHover = false;
+defaults.delay = 2000;  
 
 var debounce = require('lodash.debounce');
 
@@ -20,8 +27,10 @@ const galleryMarc = document.querySelector('.gallery');
 const searchForm = document.querySelector('#search-form');
 const buttonMore = document.querySelector('[data-action="load-more"]');
 
-searchForm.addEventListener('input', debounce(onInput, 1000));
+searchForm.addEventListener('input', debounce(onInput, 700));
 buttonMore.addEventListener('click', onLoadMore);
+
+buttonMore.classList.add('is-hidden');
 
 const apiService = new ApiService;
 
@@ -33,11 +42,23 @@ function onInput(e) {
     galleryMarc.innerHTML = '';
         
     apiService.fetchImage().then(hits => {
+        buttonMore.classList.remove('is-hidden');
         const photoMarc = photoCard(hits);
         return galleryMarc.insertAdjacentHTML('beforeend', photoMarc);
+    }).catch(() => {
+         const myError = error({
+            text: "Что-то пошло не так!"
+        });
+        return myError;
     }).finally(() => {
             if (apiService.query === '') {
-       galleryMarc.innerHTML = '';  
+                galleryMarc.innerHTML = '';
+                buttonMore.classList.add('is-hidden');
+              const myAlert = alert({
+                text: "Введите что-то ...",
+                type: 'info'
+              });
+                return myAlert;
     };
     });
     
