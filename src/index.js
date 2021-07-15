@@ -41,14 +41,22 @@ function onInput(e) {
     
     galleryMarc.innerHTML = '';
         
-    apiService.fetchImage().then(hits => {
-        buttonMore.classList.remove('is-hidden');
-        const photoMarc = photoCard(hits);
-        return galleryMarc.insertAdjacentHTML('beforeend', photoMarc);
+  apiService.fetchImage().then(hits => {
+    buttonMore.classList.remove('is-hidden');
+    if (hits.length === 0) {
+      const myError = error({
+        text: "Такого изображения нет, введите что-то понятное!"
+      });
+      buttonMore.classList.add('is-hidden');
+      return myError;
+    };
+      const photoMarc = photoCard(hits);
+      return galleryMarc.insertAdjacentHTML('beforeend', photoMarc);
     }).catch(() => {
          const myError = error({
             text: "Что-то пошло не так!"
-        });
+         });
+      
         return myError;
     }).finally(() => {
             if (apiService.query === '') {
@@ -63,6 +71,7 @@ function onInput(e) {
     });
     
 };
+
 
 function onLoadMore(e) {
     e.preventDefault();
