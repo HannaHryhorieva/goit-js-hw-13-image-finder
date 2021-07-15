@@ -76,7 +76,10 @@ function onInput(e) {
 function onLoadMore(e) {
     e.preventDefault();
     apiService.incrementPage();
-    apiService.fetchImage().then(hits => {
+  apiService.fetchImage().then(hits => {
+      if (hits.length === 0) {
+        buttonMore.classList.add('is-hidden');
+      }
         const photoMarc = photoCard(hits);
         galleryMarc.insertAdjacentHTML('beforeend', photoMarc);
     }).then(() => {
